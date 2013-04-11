@@ -1,0 +1,35 @@
+<xml>
+
+	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+
+	<files id="common">
+		<compilerflag value="-Iinclude"/>
+		<file name="common/ExternalInterface.cpp"/>
+		<file name="common/FreenectNME.cpp"/>
+
+	</files>
+
+	<set name="tool" value="exe" />
+	<set name="ndll-tool" value="dll" />
+	<set name="SLIBEXT" value=".a" />
+
+	<target id="NDLL" output="${name_prefix}FreenectNME${debug_extra}${name_extra}" tool="linker" toolid="${ndll-tool}">
+
+		<outdir name="../ndll/${BINDIR}"/>
+		<ext value=".ndll" unless="mobile"/>
+		<files id="common"/>
+		<flag     	value="-Llib" />
+		<!-- <flag	value="-L/usr/lib/" /> -->
+		<lib name="-lusb-1.0"/>
+		<lib name="-lpthread"/>
+		<lib name="-lfreenect_sync"/>
+		<lib name="-lfreenect"/>
+	</target>
+
+	<target id="default">
+
+		<target id="NDLL"/>
+
+	</target>
+
+</xml>
