@@ -1,26 +1,33 @@
 package me.beltramo.freenect;
 
 import cpp.Lib;
+import nme.utils.ByteArray;
 
 class FreenectNME {
 
-	public function new( ) : Void {
-
+	public static function processData( ) : Void {
+		freenectnme_process( );
 	}
 
-	public function test( ) : Int {
-		return freenectnme_test( );
+	public static function startKinect( ) : Void {
+		freenectnme_start( );
 	}
 
-	public function getKinectDepthInMm( ) : Int {
-		return freenectnme_get_depth_in_mm( );
+	public static function stopKinect( ) : Void {
+		freenectnme_stop( );
 	}
 
-	public function setDepthCb( cb : Array<Int> -> Void ) {
+	public static function setDepthCb( cb : Array<Int> -> Void ) {
 		freenectnme_set_depth_cb( cb );
 	}
 
+	public static function setRgbCb( cb : Array<Int> -> Void ) {
+		freenectnme_set_rgb_cb( cb );
+	}
+
 	static var freenectnme_set_depth_cb = Lib.load ("FreenectNME", "freenectnme_set_depth_cb", 1);
-	static var freenectnme_get_depth_in_mm = Lib.load ("FreenectNME", "freenectnme_get_depth_in_mm", 0);
-	static var freenectnme_test = Lib.load ("FreenectNME", "freenectnme_test", 0);
+	static var freenectnme_set_rgb_cb = Lib.load ("FreenectNME", "freenectnme_set_rgb_cb", 1);
+	static var freenectnme_process = Lib.load ("FreenectNME", "freenectnme_process", 0);
+	static var freenectnme_start = Lib.load ("FreenectNME", "freenectnme_start", 0);
+	static var freenectnme_stop = Lib.load ("FreenectNME", "freenectnme_stop", 0);
 }

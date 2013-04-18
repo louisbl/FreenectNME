@@ -2,11 +2,9 @@
 #define FREENECTNME_H
 
 namespace freenectnme {
-
-	int getDepthInMm( );
-	int test( );
-	void processEvents( );
+	void startKinect( int num_kinect );
+	void stopKinect( );
+	void processData( );
 }
-
 
 #endif
