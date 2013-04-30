@@ -11,8 +11,9 @@
 
 using namespace freenectnme;
 
-AutoGCRoot *depth_cb = 0;
-AutoGCRoot *rgb_cb = 0;
+AutoGCRoot *depth_cb   	= 0;
+AutoGCRoot *rgb_cb     	= 0;
+AutoGCRoot *depth_array	= 0;
 
 extern "C" {
 
@@ -23,11 +24,11 @@ extern "C" {
 
 	void call_depth_cb( int *depth ) {
 		int i;
-		value depth_array = alloc_array( 307200 );
+		// value depth_array = alloc_array( 307200 );
 		for ( i = 0; i < 640*480; i++ ) {
-			val_array_set_i( depth_array, i, alloc_int( depth[i] ) );
+			val_array_set_i( depth_array->get(), i, alloc_int( depth[i] ) );
 		}
-		val_call1( depth_cb->get( ), depth_array );
+		val_call1( depth_cb->get( ), depth_array->get() );
 	}
 
 	void call_rgb_cb( int *rgb ) {
@@ -60,11 +61,12 @@ extern "C" {
 
 	// Callbacks -----------------------------------------------------------------
 
-	value freenectnme_set_depth_cb( value onCall ){
-		depth_cb = new AutoGCRoot( onCall );
+	value freenectnme_set_depth_cb( value array, value onCall ){
+		depth_array	= new AutoGCRoot( array );
+		depth_cb   	= new AutoGCRoot( onCall );
 		return alloc_bool( true );
 	}
-	DEFINE_PRIM( freenectnme_set_depth_cb, 1 );
+	DEFINE_PRIM( freenectnme_set_depth_cb, 2 );
 
 	value freenectnme_set_rgb_cb( value onCall ){
 		rgb_cb = new AutoGCRoot( onCall );

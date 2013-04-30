@@ -63,9 +63,9 @@ namespace freenectnme {
 			rgb_mid = tmp;
 			got_rgb = 0;
 		}
-		call_depth_cb( depth_front );
 		pthread_mutex_unlock(&gl_backbuf_mutex);
 
+		call_depth_cb( depth_front );
 		// call_rgb_cb( (int *)rgb_front);
 
 	}
@@ -146,7 +146,7 @@ namespace freenectnme {
 		freenect_set_depth_mode(f_dev, freenect_find_depth_mode(FREENECT_RESOLUTION_MEDIUM, FREENECT_DEPTH_MM));
 		freenect_set_video_buffer(f_dev, rgb_back);
 		freenect_start_depth(f_dev);
-		freenect_start_video(f_dev);
+		// freenect_start_video(f_dev);
 		while (!die && freenect_process_events(f_ctx) >= 0) {
 			if (requested_format != current_format) {
 				freenect_stop_video(f_dev);
@@ -192,7 +192,7 @@ namespace freenectnme {
 			printf("freenect_init() failed\n");
 			return;
 		}
-		freenect_set_log_level(f_ctx, FREENECT_LOG_SPEW);
+		freenect_set_log_level(f_ctx, FREENECT_LOG_DEBUG);
 		freenect_select_subdevices(f_ctx, (freenect_device_flags)(FREENECT_DEVICE_CAMERA));
 		int nr_devices = freenect_num_devices (f_ctx);
 		printf ("Number of devices found: %d\n", nr_devices);

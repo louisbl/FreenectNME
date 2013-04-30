@@ -18,11 +18,10 @@
 		<outdir name="../ndll/${BINDIR}"/>
 		<ext value=".ndll" unless="mobile"/>
 		<files id="common"/>
-		<flag     	value="-Llib" />
+		<flag value="-Llib${M64}" />
 		<!-- <flag	value="-L/usr/lib/" /> -->
 		<lib name="-lusb-1.0"/>
 		<lib name="-lpthread"/>
-		<lib name="-lfreenect_sync"/>
 		<lib name="-lfreenect"/>
 	</target>
 
