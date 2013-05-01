@@ -3,7 +3,7 @@ FreenectNME
 A native extension to add libFreenect to your NME application
 -------------------------------------------------------------
 
-This native extension allow you to grab depth data from a Kinect. for now it's more a proof of concept than a real/usable extension.
+This native extension allow you to grab depth data from a Kinect. This is more a proof of concept than a real/usable extension.
 
 Limitations
 -----------
