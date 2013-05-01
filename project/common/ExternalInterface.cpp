@@ -12,7 +12,6 @@
 using namespace freenectnme;
 
 AutoGCRoot *depth_cb   	= 0;
-AutoGCRoot *rgb_cb     	= 0;
 AutoGCRoot *depth_array	= 0;
 
 extern "C" {
@@ -29,15 +28,6 @@ extern "C" {
 			val_array_set_i( depth_array->get(), i, alloc_int( depth[i] ) );
 		}
 		val_call1( depth_cb->get( ), depth_array->get() );
-	}
-
-	void call_rgb_cb( int *rgb ) {
-		int i;
-		value rgb_array = alloc_array( 921600 );
-		for ( i = 0; i < 640*480*3; i++ ) {
-			val_array_set_i( rgb_array, i, alloc_int( rgb[i] ) );
-		}
-		val_call1( rgb_cb->get( ), rgb_array );
 	}
 
 	value freenectnme_process( ) {
@@ -67,11 +57,5 @@ extern "C" {
 		return alloc_bool( true );
 	}
 	DEFINE_PRIM( freenectnme_set_depth_cb, 2 );
-
-	value freenectnme_set_rgb_cb( value onCall ){
-		rgb_cb = new AutoGCRoot( onCall );
-		return alloc_bool( true );
-	}
-	DEFINE_PRIM( freenectnme_set_rgb_cb, 1 );
 
 }
