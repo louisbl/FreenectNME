@@ -36,11 +36,10 @@ extern "C" {
 	}
 	DEFINE_PRIM( freenectnme_process, 0 );
 
-	value freenectnme_start( ) {
-		startKinect( 0 );
-		return alloc_null( );
+	value freenectnme_start( int num_kinect ) {
+		return alloc_int( startKinect( num_kinect ) );
 	}
-	DEFINE_PRIM( freenectnme_start, 0 );
+	DEFINE_PRIM( freenectnme_start, 1 );
 
 	value freenectnme_stop( ) {
 		stopKinect( );

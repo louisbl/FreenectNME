@@ -13,9 +13,9 @@ class FreenectNME {
 		#end
 	}
 
-	public static function startKinect( ) : Void {
+	public static function startKinect( num_kinect : Int = 0) : Int {
 		#if cpp
-		freenectnme_start( );
+		return freenectnme_start( num_kinect );
 		#end
 	}
 
@@ -34,7 +34,7 @@ class FreenectNME {
 	#if cpp
 	static var freenectnme_set_depth_cb = Lib.load ("FreenectNME", "freenectnme_set_depth_cb", 2);
 	static var freenectnme_process = Lib.load ("FreenectNME", "freenectnme_process", 0);
-	static var freenectnme_start = Lib.load ("FreenectNME", "freenectnme_start", 0);
+	static var freenectnme_start = Lib.load ("FreenectNME", "freenectnme_start", 1);
 	static var freenectnme_stop = Lib.load ("FreenectNME", "freenectnme_stop", 0);
 	#end
 }

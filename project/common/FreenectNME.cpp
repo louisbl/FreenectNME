@@ -81,14 +81,14 @@ namespace freenectnme {
 		free(depth_front);
 	}
 
-	void startKinect( int num_kinect ) {
+	int startKinect( int num_kinect ) {
 		int res;
 		depth_mid = (int*)malloc(640*480*3);
 		depth_front = (int*)malloc(640*480*3);
 		printf("Kinect camera test\n");
 		if (freenect_init(&f_ctx, NULL) < 0) {
 			printf("freenect_init() failed\n");
-			return;
+			return 0;
 		}
 		freenect_set_log_level(f_ctx, FREENECT_LOG_DEBUG);
 		freenect_select_subdevices(f_ctx, (freenect_device_flags)(FREENECT_DEVICE_CAMERA));
@@ -98,18 +98,19 @@ namespace freenectnme {
 		user_device_number = num_kinect;
 		if (nr_devices < 1) {
 			freenect_shutdown(f_ctx);
-			return;
+			return 0;
 		}
 		if (freenect_open_device(f_ctx, &f_dev, user_device_number) < 0) {
 			printf("Could not open device\n");
 			freenect_shutdown(f_ctx);
-			return;
+			return 0;
 		}
 		res = pthread_create(&freenect_thread, NULL, freenect_threadfunc, NULL);
 		if (res) {
 			printf("pthread_create failed\n");
 			freenect_shutdown(f_ctx);
-			return;
+			return 0;
 		}
+		return 1;
 	}
 }
