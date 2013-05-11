@@ -36,8 +36,8 @@ extern "C" {
 	}
 	DEFINE_PRIM( freenectnme_process, 0 );
 
-	value freenectnme_start( int num_kinect ) {
-		return alloc_int( startKinect( num_kinect ) );
+	value freenectnme_start( value num_kinect ) {
+		return alloc_int( startKinect( val_int( num_kinect ) ) );
 	}
 	DEFINE_PRIM( freenectnme_start, 1 );
 

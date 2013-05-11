@@ -17,7 +17,6 @@ namespace freenectnme {
 	pthread_mutex_t gl_backbuf_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 	int *depth_mid, *depth_front;
-	uint8_t *rgb_back, *rgb_mid, *rgb_front;
 
 	freenect_context *f_ctx;
 	freenect_device *f_dev;
@@ -28,11 +27,9 @@ namespace freenectnme {
 
 	void processData( ) {
 		pthread_mutex_lock(&gl_backbuf_mutex);
-
 		while (!got_depth) {
 			pthread_cond_wait(&gl_frame_cond, &gl_backbuf_mutex);
 		}
-
 		int *tmp_d;
 		if (got_depth) {
 			tmp_d = depth_front;
@@ -40,11 +37,8 @@ namespace freenectnme {
 			depth_mid = tmp_d;
 			got_depth = 0;
 		}
-
 		pthread_mutex_unlock(&gl_backbuf_mutex);
-
 		call_depth_cb( depth_front );
-
 	}
 
   void depth_cb(freenect_device *dev, void *v_depth, uint32_t timestamp) {
@@ -100,6 +94,7 @@ namespace freenectnme {
 			freenect_shutdown(f_ctx);
 			return 0;
 		}
+		printf ("Number of device to open: %d\n", user_device_number);
 		if (freenect_open_device(f_ctx, &f_dev, user_device_number) < 0) {
 			printf("Could not open device\n");
 			freenect_shutdown(f_ctx);
